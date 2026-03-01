@@ -282,6 +282,24 @@
 
     // Max scroll width for eye tracking boundary
     emailScrollMax = email.scrollWidth;
+
+    // Detect autofill and show the password toggle button.
+    // Browsers fill values without firing input events, so WP
+    // doesn't know the field has content. Poll briefly on load.
+    if (password && showPasswordBtn) {
+      var autofillChecks = 0;
+      var autofillTimer = setInterval(function () {
+        autofillChecks++;
+        if (password.value.length > 0) {
+          showPasswordBtn.style.display = '';
+          showPasswordBtn.style.visibility = 'visible';
+          clearInterval(autofillTimer);
+        }
+        if (autofillChecks >= 20) {
+          clearInterval(autofillTimer);
+        }
+      }, 250);
+    }
   }
 
   document.addEventListener('DOMContentLoaded', init);
