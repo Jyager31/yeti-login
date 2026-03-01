@@ -3,7 +3,7 @@
  * Plugin Name: Yeti Login
  * Plugin URI:  https://github.com/Jyager31/yeti-login
  * Description: A fun, animated yeti character for the WordPress login page with dark styling and GSAP animations.
- * Version:     1.1.0
+ * Version:     1.1.1
  * Author:      Josh Yager
  * Author URI:  https://thedevq.com/
  * License:     GPL-2.0+
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'YETI_LOGIN_VERSION', '1.1.0' );
+define( 'YETI_LOGIN_VERSION', '1.1.1' );
 define( 'YETI_LOGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'YETI_LOGIN_PATH', plugin_dir_path( __FILE__ ) );
 
@@ -255,7 +255,7 @@ add_filter( 'login_headertext', 'yeti_login_header_text' );
  * Output credit line in login footer.
  */
 function yeti_login_footer_credit() {
-    echo '<div class="yeti-login-credit">Yeti by <a href="https://darinsenneff.com" target="_blank" rel="noopener">Darin S.</a> | <a href="https://thedevq.com/" target="_blank" rel="noopener">DevQ</a></div>';
+    echo '<div class="yeti-login-credit">Yeti by <a href="https://darinsenneff.com" target="_blank" rel="noopener">Darin S.</a> | Plugin by <a href="https://thedevq.com/" target="_blank" rel="noopener">DevQ</a></div>';
 }
 add_action( 'login_footer', 'yeti_login_footer_credit' );
 

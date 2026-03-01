@@ -151,8 +151,10 @@ body.login::before {
 
 .login .message {
     z-index: 9;
-    position: relative;
+    position: absolute;
     border-left-color: #3bbfad;
+    bottom: -10px;
+    background: #333;
 }
 
 .login .success {
