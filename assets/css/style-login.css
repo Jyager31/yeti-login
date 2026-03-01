@@ -150,6 +150,8 @@ body.login::before {
 }
 
 .login .message {
+    z-index: 9;
+    position: relative;
     border-left-color: #3bbfad;
 }
 
@@ -269,15 +271,15 @@ body.login::before {
 }
 
 /* --- Footer Links --- */
-.login #backtoblog,
-.login #nav {
+body.login #backtoblog,
+body.login #nav {
     text-align: center;
     padding: 0;
     margin: 10px auto 0;
 }
 
-.login #backtoblog a,
-.login #nav a {
+body.login #backtoblog a,
+body.login #nav a {
     display: block;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -286,20 +288,23 @@ body.login::before {
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     font-size: 13px;
+    font-weight: 400;
     letter-spacing: 0.2px;
+    text-shadow: none;
+    box-shadow: none;
     transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
-.login #backtoblog a:hover,
-.login #nav a:hover {
+body.login #backtoblog a:hover,
+body.login #nav a:hover {
     background: rgba(59, 191, 173, 0.08);
     border-color: rgba(59, 191, 173, 0.2);
     color: #3bbfad;
     text-decoration: none;
 }
 
-.login #backtoblog a:focus,
-.login #nav a:focus {
+body.login #backtoblog a:focus,
+body.login #nav a:focus {
     background: rgba(59, 191, 173, 0.08);
     border-color: #3bbfad;
     color: #3bbfad;
