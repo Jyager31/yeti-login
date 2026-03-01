@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Yeti Login
- * Plugin URI:  https://github.com/DevQ-Starter/yeti-login
+ * Plugin URI:  https://github.com/Jyager31/yeti-login
  * Description: A fun, animated yeti character for the WordPress login page with dark styling and GSAP animations.
  * Version:     1.0.0
  * Author:      Josh Yager
@@ -18,6 +18,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'YETI_LOGIN_VERSION', '1.0.0' );
 define( 'YETI_LOGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'YETI_LOGIN_PATH', plugin_dir_path( __FILE__ ) );
+
+
+/* ==========================================================================
+   Auto-updates from GitHub
+   ========================================================================== */
+
+require_once YETI_LOGIN_PATH . 'plugin-update-checker/plugin-update-checker.php';
+
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+$yeti_login_updater = PucFactory::buildUpdateChecker(
+    'https://github.com/Jyager31/yeti-login/',
+    __FILE__,
+    'yeti-login'
+);
+$yeti_login_updater->setBranch( 'master' );
 
 
 /* ==========================================================================
