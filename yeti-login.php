@@ -3,7 +3,7 @@
  * Plugin Name: Yeti Login
  * Plugin URI:  https://github.com/Jyager31/yeti-login
  * Description: A fun, animated yeti character for the WordPress login page with dark styling and GSAP animations.
- * Version:     1.0.0
+ * Version:     1.1.0
  * Author:      Josh Yager
  * Author URI:  https://thedevq.com/
  * License:     GPL-2.0+
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'YETI_LOGIN_VERSION', '1.0.0' );
+define( 'YETI_LOGIN_VERSION', '1.1.0' );
 define( 'YETI_LOGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'YETI_LOGIN_PATH', plugin_dir_path( __FILE__ ) );
 
@@ -49,6 +49,57 @@ function yeti_login_enqueue_scripts() {
     wp_enqueue_script( 'yeti-login-js', YETI_LOGIN_URL . 'assets/js/login-yeti.js', array( 'gsap' ), YETI_LOGIN_VERSION, true );
 }
 add_action( 'login_enqueue_scripts', 'yeti_login_enqueue_scripts' );
+
+
+/**
+ * Dequeue any theme login stylesheets that would conflict.
+ * Runs late (priority 99) so theme styles are already registered.
+ */
+function yeti_login_dequeue_theme_styles() {
+    global $wp_styles;
+
+    if ( empty( $wp_styles->registered ) ) {
+        return;
+    }
+
+    $theme_dir = get_template_directory_uri();
+    $child_dir = get_stylesheet_directory_uri();
+
+    foreach ( $wp_styles->registered as $handle => $style ) {
+        // Skip our own stylesheet.
+        if ( $handle === 'yeti-login' ) {
+            continue;
+        }
+
+        $src = $style->src;
+
+        // Dequeue any stylesheet from the theme that has "login" in the filename.
+        if ( ( strpos( $src, $theme_dir ) !== false || strpos( $src, $child_dir ) !== false )
+            && stripos( $src, 'login' ) !== false
+        ) {
+            wp_dequeue_style( $handle );
+            wp_deregister_style( $handle );
+        }
+    }
+
+    // Dequeue theme copies of login-yeti JS to avoid double-loading.
+    global $wp_scripts;
+    if ( ! empty( $wp_scripts->registered ) ) {
+        foreach ( $wp_scripts->registered as $handle => $script ) {
+            if ( $handle === 'yeti-login-js' ) {
+                continue;
+            }
+            $src = $script->src;
+            if ( ( strpos( $src, $theme_dir ) !== false || strpos( $src, $child_dir ) !== false )
+                && stripos( $src, 'login-yeti' ) !== false
+            ) {
+                wp_dequeue_script( $handle );
+                wp_deregister_script( $handle );
+            }
+        }
+    }
+}
+add_action( 'login_enqueue_scripts', 'yeti_login_dequeue_theme_styles', 99 );
 
 
 /**

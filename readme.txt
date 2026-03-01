@@ -4,7 +4,7 @@ Tags: login, custom login, yeti, animation, gsap
 Requires at least: 5.0
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,14 @@ Yes. Yeti Login is a standalone plugin with no theme dependencies.
 2. Settings page with logo and background customization.
 
 == Changelog ==
+
+= 1.1.0 =
+* Auto-dequeue conflicting theme login stylesheets and scripts when plugin is active.
+* GitHub auto-update support — update directly from WordPress admin.
+* Improved image picker fields on settings page.
+* Fixed footer link styling specificity for better theme compatibility.
+* Added z-index to login error and info notices so they render above the yeti.
+* Lost password link highlights red when a login error is present.
 
 = 1.0.0 =
 * Initial release.
