@@ -1,0 +1,400 @@
+/* ==========================================================================
+   Yeti Login Plugin - Login Page Styles
+   ========================================================================== */
+
+/* --- Page Background --- */
+body.login {
+    background-image: var(--yeti-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+body.login::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        160deg,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0.70) 50%,
+        rgba(59, 191, 173, 0.15) 100%
+    );
+    z-index: 0;
+}
+
+/* --- Login Container --- */
+#login {
+    position: relative;
+    z-index: 1;
+    width: 360px;
+    padding: 20px 0 40px;
+    animation: yeti-fade-in 0.5s ease-out;
+}
+
+/* --- Hide default WP logo --- */
+.login h1 {
+    display: none;
+}
+
+/* --- Logo --- */
+.yeti-login-logo {
+    text-align: center;
+    margin: 0 auto 15px;
+}
+
+.yeti-login-logo a {
+    display: inline-block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.yeti-login-logo a:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 12px rgba(59, 191, 173, 0.5));
+}
+
+.yeti-login-logo img {
+    width: 140px;
+    height: auto;
+}
+
+/* --- Yeti SVG Container --- */
+.svgContainer {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto -50px;
+    z-index: 1;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.svgContainer > div {
+    position: relative;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 50%;
+    padding-bottom: 100%;
+}
+
+.svgContainer .mySVG {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.svgContainer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    box-sizing: border-box;
+    border: 2.5px solid #3bbfad;
+    border-radius: 50%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* --- Form Container --- */
+.login form {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    padding: 50px 24px 26px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* --- Labels --- */
+.login label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.login #login_error,
+.login .message,
+.login .success {
+    border-radius: 6px;
+    border-left-width: 4px;
+    margin-bottom: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.85);
+    box-shadow: none;
+}
+
+.login #login_error {
+    border-left-color: #dc3545;
+}
+
+.login .message {
+    border-left-color: #3bbfad;
+}
+
+.login .success {
+    border-left-color: #28a745;
+}
+
+.login #login_error a {
+    color: #3bbfad;
+}
+
+/* --- Input Fields --- */
+.login input[type="text"],
+.login input[type="password"] {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 15px;
+    padding: 10px 14px;
+    height: auto;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-shadow: none;
+}
+
+.login input[type="text"]:focus,
+.login input[type="password"]:focus {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: #3bbfad;
+    box-shadow: 0 0 0 2px rgba(59, 191, 173, 0.25);
+    outline: none;
+    color: #ffffff;
+}
+
+.login input[type="text"]::placeholder,
+.login input[type="password"]::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* --- Remember Me --- */
+.login .forgetmenot {
+    margin-top: 8px;
+}
+
+.login .forgetmenot label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.login input[type="checkbox"] {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+}
+
+.login input[type="checkbox"]:checked {
+    background: #3bbfad;
+    border-color: #3bbfad;
+}
+
+.login input[type="checkbox"]:focus {
+    border-color: #3bbfad;
+    box-shadow: 0 0 0 2px rgba(59, 191, 173, 0.25);
+}
+
+/* --- Submit Button --- */
+.wp-core-ui .button-primary {
+    background: #3bbfad;
+    border: none;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    height: auto;
+    min-height: 44px;
+    width: 100%;
+    text-shadow: none;
+    box-shadow: 0 2px 8px rgba(59, 191, 173, 0.3);
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+    cursor: pointer;
+}
+
+.wp-core-ui .button-primary:hover,
+.wp-core-ui .button-primary:focus {
+    background: #2ea899;
+    box-shadow: 0 4px 16px rgba(59, 191, 173, 0.4);
+    color: #ffffff;
+    border: none;
+}
+
+.wp-core-ui .button-primary:active {
+    background: #279385;
+    transform: translateY(1px);
+    box-shadow: 0 1px 4px rgba(59, 191, 173, 0.3);
+}
+
+.wp-core-ui .button-primary:focus {
+    outline: 2px solid #3bbfad;
+    outline-offset: 2px;
+}
+
+/* --- Footer Links --- */
+.login #backtoblog,
+.login #nav {
+    text-align: center;
+    padding: 0;
+    margin: 10px auto 0;
+}
+
+.login #backtoblog a,
+.login #nav a {
+    display: block;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    padding: 12px 16px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.2px;
+    transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.login #backtoblog a:hover,
+.login #nav a:hover {
+    background: rgba(59, 191, 173, 0.08);
+    border-color: rgba(59, 191, 173, 0.2);
+    color: #3bbfad;
+    text-decoration: none;
+}
+
+.login #backtoblog a:focus,
+.login #nav a:focus {
+    background: rgba(59, 191, 173, 0.08);
+    border-color: #3bbfad;
+    color: #3bbfad;
+    box-shadow: none;
+    outline: none;
+}
+
+/* --- Privacy Policy --- */
+.login .privacy-policy-page-link a {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 12px;
+    transition: color 0.3s ease;
+}
+
+.login .privacy-policy-page-link a:hover {
+    color: #3bbfad;
+}
+
+/* --- Password Reveal Button --- */
+.login .wp-pwd .button.wp-hide-pw {
+    color: rgba(255, 255, 255, 0.5);
+    background: transparent;
+    border: none;
+    transition: color 0.3s ease;
+}
+
+.login .wp-pwd .button.wp-hide-pw:hover {
+    color: #3bbfad;
+    background: transparent;
+}
+
+.login .wp-pwd .button.wp-hide-pw:focus {
+    color: #3bbfad;
+    box-shadow: none;
+    outline: 1px solid rgba(59, 191, 173, 0.5);
+    outline-offset: 2px;
+}
+
+/* --- Password Strength Indicator --- */
+#pass-strength-result {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+/* --- Language Switcher (WP 5.9+) --- */
+.language-switcher {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 6px;
+}
+
+.language-switcher .button {
+    color: rgba(255, 255, 255, 0.7);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.language-switcher select {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+}
+
+/* --- Yeti Credit --- */
+.yeti-login-credit {
+    position: fixed;
+    bottom: 10px;
+    right: 14px;
+    font-size: 10px;
+    color: #ffffff73;
+    z-index: 1;
+}
+
+.yeti-login-credit a {
+    color: #ffffff73;
+    text-decoration: none;
+}
+
+.yeti-login-credit a:hover {
+    color: #3bbfad;
+}
+
+/* --- Entrance Animation --- */
+@keyframes yeti-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Mobile --- */
+@media (max-width: 480px) {
+    #login {
+        width: 90%;
+        padding: 20px 0;
+    }
+
+    .svgContainer {
+        width: 160px;
+        height: 160px;
+        margin-bottom: -24px;
+    }
+
+    .login form {
+        padding: 40px 16px 20px;
+    }
+}
