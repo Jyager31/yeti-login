@@ -286,10 +286,24 @@ function yeti_login_admin_scripts( $hook ) {
         true
     );
     wp_add_inline_style( 'wp-admin', '
-        .yeti-login-preview { max-width: 200px; margin-top: 8px; border-radius: 4px; }
-        .yeti-login-preview img { max-width: 100%; height: auto; display: block; }
-        .yeti-login-upload-field { display: flex; align-items: center; gap: 8px; }
-        .yeti-login-upload-field input[type="text"] { flex: 1; }
+        .yeti-login-image-field .yeti-login-preview {
+            width: 200px;
+            min-height: 80px;
+            border: 2px dashed #c3c4c7;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            background: #f0f0f1;
+            transition: border-color 0.2s;
+        }
+        .yeti-login-image-field .yeti-login-preview:hover { border-color: #2271b1; }
+        .yeti-login-image-field .yeti-login-preview.has-image { border-style: solid; background: #000; }
+        .yeti-login-image-field .yeti-login-preview img { max-width: 100%; height: auto; display: block; }
+        .yeti-login-image-field .yeti-login-preview .placeholder { color: #8c8f94; font-size: 13px; }
+        .yeti-login-image-field .yeti-login-actions { margin-top: 8px; display: flex; gap: 6px; }
     ' );
 }
 add_action( 'admin_enqueue_scripts', 'yeti_login_admin_scripts' );
@@ -301,21 +315,21 @@ add_action( 'admin_enqueue_scripts', 'yeti_login_admin_scripts' );
 function yeti_login_render_logo_field() {
     $value = get_option( 'yeti_login_logo', '' );
     ?>
-    <div class="yeti-login-upload-field">
-        <input type="text" id="yeti_login_logo" name="yeti_login_logo" value="<?php echo esc_url( $value ); ?>" class="regular-text" />
-        <button type="button" class="button yeti-login-upload" data-target="#yeti_login_logo"><?php esc_html_e( 'Upload', 'yeti-login' ); ?></button>
-        <?php if ( $value ) : ?>
-            <button type="button" class="button yeti-login-remove" data-target="#yeti_login_logo"><?php esc_html_e( 'Remove', 'yeti-login' ); ?></button>
-        <?php endif; ?>
-    </div>
-    <?php if ( $value ) : ?>
-        <div class="yeti-login-preview" id="yeti_login_logo_preview">
-            <img src="<?php echo esc_url( $value ); ?>" alt="" />
+    <div class="yeti-login-image-field">
+        <input type="hidden" id="yeti_login_logo" name="yeti_login_logo" value="<?php echo esc_url( $value ); ?>" />
+        <div class="yeti-login-preview<?php echo $value ? ' has-image' : ''; ?>" id="yeti_login_logo_preview" data-target="#yeti_login_logo">
+            <?php if ( $value ) : ?>
+                <img src="<?php echo esc_url( $value ); ?>" alt="" />
+            <?php else : ?>
+                <span class="placeholder"><?php esc_html_e( 'Click to upload logo', 'yeti-login' ); ?></span>
+            <?php endif; ?>
         </div>
-    <?php else : ?>
-        <div class="yeti-login-preview" id="yeti_login_logo_preview"></div>
-    <?php endif; ?>
-    <p class="description"><?php esc_html_e( 'Upload a logo to display above the yeti. Leave empty to show no logo.', 'yeti-login' ); ?></p>
+        <div class="yeti-login-actions">
+            <button type="button" class="button yeti-login-upload" data-target="#yeti_login_logo"><?php esc_html_e( 'Upload', 'yeti-login' ); ?></button>
+            <button type="button" class="button yeti-login-remove" data-target="#yeti_login_logo" <?php echo $value ? '' : 'style="display:none;"'; ?>><?php esc_html_e( 'Remove', 'yeti-login' ); ?></button>
+        </div>
+        <p class="description"><?php esc_html_e( 'Upload a logo to display above the yeti. Leave empty to show no logo.', 'yeti-login' ); ?></p>
+    </div>
     <?php
 }
 
@@ -339,17 +353,17 @@ function yeti_login_render_bg_field() {
     $value = get_option( 'yeti_login_bg', '' );
     $display_url = ! empty( $value ) ? $value : YETI_LOGIN_URL . 'assets/images/black-brick.jpg';
     ?>
-    <div class="yeti-login-upload-field">
-        <input type="text" id="yeti_login_bg" name="yeti_login_bg" value="<?php echo esc_url( $value ); ?>" class="regular-text" placeholder="<?php esc_html_e( 'Default: black brick', 'yeti-login' ); ?>" />
-        <button type="button" class="button yeti-login-upload" data-target="#yeti_login_bg"><?php esc_html_e( 'Upload', 'yeti-login' ); ?></button>
-        <?php if ( $value ) : ?>
-            <button type="button" class="button yeti-login-remove" data-target="#yeti_login_bg"><?php esc_html_e( 'Remove', 'yeti-login' ); ?></button>
-        <?php endif; ?>
+    <div class="yeti-login-image-field">
+        <input type="hidden" id="yeti_login_bg" name="yeti_login_bg" value="<?php echo esc_url( $value ); ?>" />
+        <div class="yeti-login-preview has-image" id="yeti_login_bg_preview" data-target="#yeti_login_bg">
+            <img src="<?php echo esc_url( $display_url ); ?>" alt="" />
+        </div>
+        <div class="yeti-login-actions">
+            <button type="button" class="button yeti-login-upload" data-target="#yeti_login_bg"><?php esc_html_e( 'Upload', 'yeti-login' ); ?></button>
+            <button type="button" class="button yeti-login-remove" data-target="#yeti_login_bg" <?php echo $value ? '' : 'style="display:none;"'; ?>><?php esc_html_e( 'Remove', 'yeti-login' ); ?></button>
+        </div>
+        <p class="description"><?php esc_html_e( 'Upload a custom background image. Leave empty to use the default black brick background.', 'yeti-login' ); ?></p>
     </div>
-    <div class="yeti-login-preview" id="yeti_login_bg_preview">
-        <img src="<?php echo esc_url( $display_url ); ?>" alt="" />
-    </div>
-    <p class="description"><?php esc_html_e( 'Upload a custom background image. Leave empty to use the default black brick background.', 'yeti-login' ); ?></p>
     <?php
 }
 
