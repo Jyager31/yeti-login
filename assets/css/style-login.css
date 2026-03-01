@@ -143,6 +143,9 @@ body.login::before {
 }
 
 .login #login_error {
+    z-index: 9;
+    position: relative;
+    background: black;
     border-left-color: #dc3545;
 }
 
@@ -156,6 +159,20 @@ body.login::before {
 
 .login #login_error a {
     color: #3bbfad;
+}
+
+/* --- Lost Password link on error --- */
+.login #login_error ~ #nav a {
+    background: rgba(220, 53, 69, 0.15);
+    border: 1px solid rgba(220, 53, 69, 0.5);
+    color: #ff6b7a;
+    font-weight: 600;
+}
+
+.login #login_error ~ #nav a:hover {
+    background: rgba(220, 53, 69, 0.25);
+    border-color: #dc3545;
+    color: #ff4d5e;
 }
 
 /* --- Input Fields --- */
